@@ -1,0 +1,63 @@
+<form class="example-form bg-mainTeal rounded-md" [formGroup]="form" id="form1" (ngSubmit)="submit()">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Email..."
+      formControlName="emailFormControl"
+    />
+    <mat-error *ngIf="form.get('emailFormControl')?.errors?.['required']">
+      Email is <strong>required</strong>
+    </mat-error>
+    <mat-error
+      *ngIf="!form.get('emailFormControl')?.errors?.['required'] && form.get('emailFormControl')?.errors?.['email']"
+    >
+      Please enter a valid email address
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width mt-2" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+      [type]="hide ? 'password' : 'text'"
+      matInput
+      placeholder="Password"
+      formControlName="passwordFormControl"
+    />
+    <mat-icon matSuffix (click)="hide = !hide">{{
+      hide ? 'visibility_off' : 'visibility'
+    }}</mat-icon>
+    <mat-error *ngIf="form.get('passwordFormControl')?.errors?.['required']">
+        Password is <strong>required</strong>
+      </mat-error>
+    <mat-error
+      *ngIf="!form.get('passwordFormControl')?.errors?.['required'] && form.get('passwordFormControl')?.errors?.['minlength']"
+    >
+     Password min length 6
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<div class="example-form flex justify-center">
+  <button
+    type="submit"
+    form="form1"
+    mat-raised-button
+    class="bg-mainTeal"
+    *ngIf="isLogin; else signUpBtn"
+    [disabled]="form.invalid || form.pending || submitted"
+  >
+    LOGIN
+  </button>
+  <ng-template #signUpBtn>
+  <button
+    type="submit"
+    form="form1"
+    mat-raised-button
+    class="bg-mainTeal"
+    [disabled]="form.invalid || form.pending || submitted"
+  >
+  SIGN UP
+  </button></ng-template>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="arr.length">
+  <p class="text-lg font-semibold text-mainTeal my-5">{{tableFor | uppercase}}</p>
+  <table  mat-table [dataSource]="arr" class="mat-elevation-z8">
+  
+      <ng-container *ngFor="let d of displayed[tableFor]" matColumnDef="{{d}}">
+        <th mat-header-cell *matHeaderCellDef> {{d | uppercase}} </th>
+        <td class="cursor-pointer" (click)="openDialog(element)" mat-cell *matCellDef="let element"> {{element[d]}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayed[tableFor]"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayed[tableFor];"></tr>
+    </table>
+    
+</div>

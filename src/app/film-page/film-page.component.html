@@ -1,0 +1,14 @@
+<div *ngIf="film" class="text-mainLight flex mt-5 relative h-[250px]">
+  <div class="relative z-10 w-2/3">
+      <p class="my-5 text-3xl font-bold">{{ film.title }}</p>
+      <p class="  ">
+        <span class="text-mainTeal">Release Date: </span>{{ film.release_date | date: 'dd.MM.yyy' }}
+      </p>
+      <p class="  ">{{ film.opening_crawl }}</p>
+  </div>
+  <div class="bg-gradient-to-r from-mainDark   z-10 w-[660px]"></div>
+  <div class="absolute -z-0 top-0 right-0 w-[600px] bg-no-repeat bg-right bg-cover bottom-0" [ngStyle]="{ backgroundImage: 'url(' + film.poster + ')' }"></div>
+</div>
+<app-table [arr]="characters" [tableFor]="'characters'"></app-table>
+<app-table [arr]="planets" [tableFor]="'planets'"></app-table>
+<app-table [arr]="starships" [tableFor]="'starships'"></app-table>
