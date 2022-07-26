@@ -1,29 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../interfaces';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
 
 @Component({
   selector: 'app-login',
@@ -37,6 +16,7 @@ export class LoginComponent implements OnInit {
   }
   submitted = false;
   hide = true;
+  
   form = new FormGroup({
     emailFormControl: new FormControl('', [
       Validators.required,
@@ -48,15 +28,22 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  matcher = new MyErrorStateMatcher();
+  formReg = new FormGroup({
+    emailFormControlReg: new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    passwordFormControlReg: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+  });
 
   ngOnInit(): void {
-    if(this.auth.isAuthenticated()) {
+    if (this.auth.isAuthenticated()) {
       this.router.navigate(['/films']);
     }
   }
-
-  
 
   submit() {
     if (this.form.invalid) {
@@ -88,16 +75,20 @@ export class LoginComponent implements OnInit {
           }
         );
       } else {
-        this.auth.signup(user).subscribe(() => {
-          this.form.setValue({emailFormControl: '', passwordFormControl: ''});
-          this.submitted = false;
-          this.auth.isLogin(true);
-          this.router.navigate(['/']);
-          
-        },() => {
-          this.submitted = false;
-        })
-          
+        this.auth.signup(user).subscribe(
+          () => {
+            this.form.setValue({
+              emailFormControl: '',
+              passwordFormControl: '',
+            });
+            this.submitted = false;
+            this.auth.isLogin(true);
+            this.router.navigate(['/']);
+          },
+          () => {
+            this.submitted = false;
+          }
+        );
       }
     }
   }

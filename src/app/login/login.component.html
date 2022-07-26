@@ -1,11 +1,17 @@
-<form class="example-form bg-mainTeal rounded-md" [formGroup]="form" id="form1" (ngSubmit)="submit()">
+<form
+
+  [classList]="isLogin ? 'bg-mainTeal example-form rounded-md': 'bg-mainNavy example-form rounded-md text-mainLight'"
+  [formGroup]="form"
+  id="form1"
+  (ngSubmit)="submit()"
+>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Email</mat-label>
     <input
       type="text"
       matInput
       placeholder="Email..."
-      formControlName="emailFormControl"
+      [formControlName]="isLogin ? 'emailFormControl' : 'emailFormControlReg'"
     />
     <mat-error *ngIf="form.get('emailFormControl')?.errors?.['required']">
       Email is <strong>required</strong>
@@ -23,18 +29,20 @@
       [type]="hide ? 'password' : 'text'"
       matInput
       placeholder="Password"
-      formControlName="passwordFormControl"
+      [formControlName]="
+        isLogin ? 'passwordFormControl' : 'passwordFormControlReg'
+      "
     />
     <mat-icon matSuffix (click)="hide = !hide">{{
       hide ? 'visibility_off' : 'visibility'
     }}</mat-icon>
     <mat-error *ngIf="form.get('passwordFormControl')?.errors?.['required']">
-        Password is <strong>required</strong>
-      </mat-error>
+      Password is <strong>required</strong>
+    </mat-error>
     <mat-error
       *ngIf="!form.get('passwordFormControl')?.errors?.['required'] && form.get('passwordFormControl')?.errors?.['minlength']"
     >
-     Password min length 6
+      Password min length 6
     </mat-error>
   </mat-form-field>
 </form>
@@ -51,13 +59,14 @@
     LOGIN
   </button>
   <ng-template #signUpBtn>
-  <button
-    type="submit"
-    form="form1"
-    mat-raised-button
-    class="bg-mainTeal"
-    [disabled]="form.invalid || form.pending || submitted"
+    <button
+      type="submit"
+      form="form1"
+      mat-raised-button
+      class="bg-mainTeal"
+      [disabled]="form.invalid || form.pending || submitted"
+    >
+      SIGN UP
+    </button></ng-template
   >
-  SIGN UP
-  </button></ng-template>
 </div>
