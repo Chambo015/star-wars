@@ -50,7 +50,13 @@ export class LoginComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.auth.isAuthenticated()) {
+      this.router.navigate(['/films']);
+    }
+  }
+
+  
 
   submit() {
     if (this.form.invalid) {

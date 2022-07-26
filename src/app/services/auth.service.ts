@@ -10,8 +10,8 @@ import { FbAuthResponse, User } from '../interfaces';
 export class AuthService {
   // private стрим для работы с next
   // public стрим чтобы читать из вне
-  private _isAuthenticated$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this._isAuthenticated$.asObservable();
+/*   private _isAuthenticated$ = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$ = this._isAuthenticated$.asObservable(); */
 
   private _error$ = new BehaviorSubject<string>('');
   public error$ = this._error$.asObservable();
@@ -65,7 +65,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    this._isAuthenticated$.next(!!this.token);
     return !!this.token;
   }
 
@@ -76,11 +75,9 @@ export class AuthService {
       const expiresDate = new Date(Date.now() + parseInt(expiresIn) * 1000);
       localStorage.setItem('fb-token', idToken);
       localStorage.setItem('fb-token-expires', expiresDate.toString());
-      this._isAuthenticated$.next(true);
     } else {
       // если res = null
       localStorage.clear();
-      this._isAuthenticated$.next(false);
     }
   }
 

@@ -6,10 +6,11 @@ import { IsAuthGuard } from './is-auth.guard';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
+  { path: 'auth', component: LoginComponent, pathMatch: 'full' },
   { path: 'films', component: FilmsComponent, pathMatch: 'full' , canActivate: [IsAuthGuard]},
   { path: 'films/:id', component: FilmPageComponent, canActivate: [IsAuthGuard] },
-  { path: '**', redirectTo: '/' },
+  { path: '**', redirectTo: '/auth' },
 ];
 
 @NgModule({

@@ -11,7 +11,9 @@ export class AppComponent {
   title = 'star-wars';
   typeSignIn: boolean = true
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {
+  
+  }
   logout() {
     this.authService.logout();
     this.router.navigate(['/'])

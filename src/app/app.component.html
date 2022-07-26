@@ -3,7 +3,7 @@
     <span routerLink="/films" class="cursor-pointer hover:text-mainLight">Star Wars Application</span>
     <span class="grow"></span>
 
-    <div *ngIf="!(authService.isAuthenticated$ | async)">
+    <div *ngIf="!(authService.isAuthenticated())">
       <button
       (click)="authService.isLogin(true)"
         *ngIf="!(authService.isLogin$ | async); else signUp"
@@ -21,7 +21,7 @@
       </ng-template>
     </div>
     <button
-      *ngIf="authService.isAuthenticated$ | async"
+      *ngIf="authService.isAuthenticated()"
       mat-button
       (click)="logout()"
       class="example-icon rounded-full"
@@ -29,6 +29,7 @@
       <mat-icon>logout</mat-icon>
       <span class="ml-1">Logout</span>
     </button>
+    
   </div>
 </mat-toolbar>
 <main class="container mx-auto">
