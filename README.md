@@ -5,6 +5,8 @@
 * tailwindcss
 * firebase Auth
 
+Deploy - https://chambo015.github.io/star-wars/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
 
 ## Development server
